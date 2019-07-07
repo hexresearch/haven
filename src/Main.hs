@@ -123,10 +123,11 @@ toNix m =
       , "    repo = \"" <> _mavenNix_repo m <> "\";"
       , "    jarSha256 = " <> showHash (_mavenNix_jarSha256 m) <> ";"
       , "    pomSha256 = " <> showHash (_mavenNix_pomSha256 m) <> ";"
-      , "    aarSha256 = " <> showHash (_mavenNix_aarSha256 m) <> "; }"
+      , "    aarSha256 = " <> showHash (_mavenNix_aarSha256 m) <> ";"
       ] ++ maybe [] (\v -> [
         "    classifier = \"" <> v <> "\";"
       ]) (_maven_classifier mvn)
+      ++ ["  }"]
 
 -- | Gets the repo with the given id, calling 'empty' when it's not present
 getRepo :: (MonadReader HavenEnv m, MonadPlus m) => String -> m String
